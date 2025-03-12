@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <link rel="stylesheet" href="/static/chat.css">
+</head>
+
+<body>
+    <div id="chat-container">
+        <header>
+            <h1>Welcome, {{ username }}!</h1>
+            <a href="/logout" id="logout-btn">Logout</a>
+        </header>
+
+        <div id="chat-box">
+            {% for message in messages %}
+            <div class="message {% if message[3] == user_id %}sent{% else %}received{% endif %}">
+                <div class="message-content">
+                    <p>{{ message[0] }}</p>
+                    {% if message[4] < 0.9 %} <!-- Show probability only if below 90% -->
+                        <div class="probability-box 
+              {% if message[4] <= 0.3 %}red
+              {% elif message[4] <= 0.8 %}yellow
+              {% elif message[4] <= 0.9 %}faint-green
+              {% else %}bright-green
+              {% endif %}">
+                            Truth Probability: {{ (message[4] * 100) | round(2) }}%
+                        </div>
+                        {% endif %}
+                </div>
+                <div class="message-info">
+                    <span class="sender">{{ message[2] }}</span>
+                    <span class="timestamp">{{ message[1] }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type a message..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+        const chatBox = document.getElementById('chat-box');
+
+        // Ensure the chat box scrolls to the bottom on load
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Handle form submission
+        messageForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const content = messageInput.value;
+
+            // Send the message to the Flask backend
+            fetch('/send_message', {
+                method: 'POST',
+                body: new URLSearchParams({ 'content': content }),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).then(() => {
+                messageInput.value = ''; // Clear the input field
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+                location.reload(); // Refresh the page
+            });
+        });
+    </script>
+</body>
+
+</html>

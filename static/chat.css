@@ -1,0 +1,173 @@
+/* General Layout */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
+#chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 800px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Header */
+header {
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+header #logout-btn {
+  text-decoration: none;
+  color: white;
+  background-color: #ff4b5c;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+header #logout-btn:hover {
+  background-color: #e04150;
+}
+
+/* Chat Box */
+#chat-box {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Message Styles */
+.message {
+  max-width: 70%;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message.sent {
+  align-self: flex-end; /* Align sent messages to the right */
+  background-color: #007bff;
+  color: white;
+}
+
+.message.received {
+  align-self: flex-start; /* Align received messages to the left */
+  background-color: #e9ecef;
+  color: black;
+}
+
+/* Message Info */
+.message-info {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Probability Box */
+.probability-box {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Color scheme for probability ranges */
+.probability-box.red {
+  background-color: #dc3545; /* Red for 0-30% */
+}
+
+.probability-box.yellow {
+  background-color: #ffc107; /* Yellow for 30-80% */
+}
+
+.probability-box.faint-green {
+  background-color: #8fd19e; /* Faint green for 80-90% */
+}
+
+.probability-box.bright-green {
+  background-color: #28a745; /* Bright green for 90-100% */
+}
+
+/* Form */
+form {
+  display: flex;
+  padding: 15px;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+form input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+form button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Scrollbar */
+#chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 4px;
+}
+
+#chat-box::-webkit-scrollbar-thumb:hover {
+  background: #aaaaaa;
+}
